@@ -80,14 +80,15 @@ in the file `\Hornbill\Core Services\Apache\conf\cs\core\004_proxy.conf` update 
 
 ```
 LoadModule proxy_module modules/mod_proxy.so
-   LoadModule proxy_http_module modules/mod_proxy_http.so
-   ProxyPass "/sw/xmlmc"  "http://localhost:5015/"
-   ProxyPassReverse "/sw/xmlmc"  "http://localhost:5015/"
-   #ProxyRequests Off
+LoadModule proxy_http_module modules/mod_proxy_http.so
+ProxyPass "/sw/xmlmc"  "http://localhost:5015/"
+ProxyPassReverse "/sw/xmlmc"  "http://localhost:5015/"
+
+#ProxyRequests Off
    
-   #<Proxy *>
-   #    Require all denied
-   #</Proxy>
+#<Proxy *>
+#    Require all denied
+#</Proxy>
    
 ```
 
