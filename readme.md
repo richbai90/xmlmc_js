@@ -78,7 +78,8 @@ takes the form of a javascript object that may have the following properties
 In order to submit requests to the server from the client, a modification must be made to the apache configuration
 in the file `\Hornbill\Core Services\Apache\conf\cs\core\004_proxy.conf` update it to read as follows
 
-```LoadModule proxy_module modules/mod_proxy.so
+```
+LoadModule proxy_module modules/mod_proxy.so
    LoadModule proxy_http_module modules/mod_proxy_http.so
    ProxyPass "/sw/xmlmc"  "http://localhost:5015/"
    ProxyPassReverse "/sw/xmlmc"  "http://localhost:5015/"
@@ -87,9 +88,8 @@ in the file `\Hornbill\Core Services\Apache\conf\cs\core\004_proxy.conf` update 
    #<Proxy *>
    #    Require all denied
    #</Proxy>
+   
 ```
-
-t
 
 Once that is complete you will need to restart the `apacheserver` service. Then to use this library, just include the 
 ajax-example.js file on an html page, somewhere on the server where it is accessible via the outside. We reccomend placing
