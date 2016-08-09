@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing Xmlmc</title>
+</head>
+<body>
+
+</body>
+<script src="ajax-example.js"></script>
+<script>
+    var xmlmc = new Xmlmc('localhost');
+    var login = xmlmc.newRequest('analystLogon','session');
+    login.setParams({
+        userId: 'admin',
+        password: ''
+    });
+
+    var logCall = xmlmc.newRequest('logNewCall','helpdesk');
+
+    logCall.setParams({
+        callClass: 'incident',
+        customerId: 'AlanC',
+        updateMessage: 'This is a test!'
+    });
+
+    var logoff = xmlmc.newRequest('analystLogoff', 'session');
+
+    xmlmc.submitRequest(login, function(response) {
+        var p = document.createElement("p");
+        var text = document.createTextNode(JSON.stringify(response));
+        p.appendChild(text);
+        document.body.appendChild(p);
+
+        xmlmc.submitRequest(logCall, function(response) {
+            var p = document.createElement("p");
+            var text = document.createTextNode(JSON.stringify(response));
+            p.appendChild(text);
+            document.body.appendChild(p);
+
+            xmlmc.submitRequest(logoff, function(response) {
+                var p = document.createElement("p");
+                var text = document.createTextNode(JSON.stringify(response));
+                p.appendChild(text);
+                document.body.appendChild(p);
+            })
+        })
+
+    });
+
+</script>
+</html>
