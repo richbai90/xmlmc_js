@@ -58,7 +58,7 @@
 
     Request.prototype.processParams = function (params) {
         params = params || this.params;
-        params.recursion = 0;
+        params.recursion = params.recursion + 1 || 0;
         var xml = '';
 
         for (var p in params) {
@@ -72,19 +72,22 @@
                 if ((p.toLowerCase() == 'password') || (p.toLowerCase() == 'secretkey')) {
                     params[p] = btoa(this.params[p]);
                 }
+
+                xml += '\t<' + p + '>';
                 if ((typeof params[p]).toLowerCase() == 'string') {
-                    xml += '\t<' + p + '>' + this.params[p] + '</' + p + '>';
+                    xml += params[p];
                 } else {
                     //assume object, and recur
-                    if (recurion < 4) {
+                    if (params.recursion < 10) {
                         //So as not to get caught in a recursive loop
-                        xml += this.processParams(this.params[p]);
+                        xml += '\n' + this.processParams(params[p]);
                     } else {
                         //This isn't supposed to happen
                         throw('Processing parameters caught in recursive loop');
                     }
 
                 }
+                xml += '</' + p + '>\n'
 
             }
         }

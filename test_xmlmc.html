@@ -21,7 +21,12 @@
     logCall.setParams({
         callClass: 'incident',
         customerId: 'AlanC',
-        updateMessage: 'This is a test!'
+        updateMessage: 'This is a test!',
+        additionalCallValues: {
+            opencall: {
+                itsm_title: "This is a test!"
+            }
+        }
     });
 
     var logoff = xmlmc.newRequest('analystLogoff', 'session');
